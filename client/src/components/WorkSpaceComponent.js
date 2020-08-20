@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import ImageCanvas from "./ImageCanvasComponent";
 import AnnotationTools from "./AnnotationToolsComponent";
 import AnnotationLabel from "./AnnotationLabelComponent";
-import DrawAnnotations from "./DrawAnnotationsComponent";
+import { Container, Row, Col } from 'react-grid-system';
 
 // This components renders the selected components for a annotation job
 const WorkSpace = ({getAnnotationLabels}) => {
@@ -56,7 +56,7 @@ const WorkSpace = ({getAnnotationLabels}) => {
     };
     // collect the label names
     const labels = labelsMap.labels.slice().map(label => {
-        return label.label;
+        return label;
     });
     // get the annotations after a modification to the list like a deletion
     const getModifiedAnnotations = (modifiedAnnotations) => {
@@ -79,25 +79,37 @@ const WorkSpace = ({getAnnotationLabels}) => {
     //console.log(annotationLabels.length);
     return (
         <div>
-            <p>Box!T</p>
-            <ImageCanvas 
-                toolId={currentToolId}
-                labelId={currentLabelId}
-                color={currentColor}
-                getAnnotations={getAnnotations}
-                getSelectedId={getSelectedId}
-                validAnnotations={validAnnotations}
-            />
-            <AnnotationTools
-                validAnnotations={validAnnotations}
-                currentSelectedId={currentSelectedId}
-                getToolId={getToolId}
-                getModifiedAnnotations={getModifiedAnnotations}
-            />
-            <AnnotationLabel
-                labels={labels}
-                getLabelId={getLabelId}
-            />
+            <Row>
+                <Col>
+                    <ImageCanvas 
+                        toolId={currentToolId}
+                        labelId={currentLabelId}
+                        color={currentColor}
+                        getAnnotations={getAnnotations}
+                        getSelectedId={getSelectedId}
+                        validAnnotations={validAnnotations}
+                    />
+                </Col>
+            </Row>
+            <Row>
+                <Col>
+                    <AnnotationTools
+                        validAnnotations={validAnnotations}
+                        currentSelectedId={currentSelectedId}
+                        getToolId={getToolId}
+                        getModifiedAnnotations={getModifiedAnnotations}
+                    />
+                </Col>
+            </Row>
+            <Row>
+                <Col>
+                    <AnnotationLabel
+                        labels={labels}
+                        getLabelId={getLabelId}
+                    />
+                </Col>
+            </Row>
+            
             
         </div>
     );
@@ -107,14 +119,14 @@ const labelsMap = {
     labels: [
         {
             label: "car",
-            color: "red",
+            color: "#0bd8f1",
         },
         {
             label: "fence",
-            color: "green",
+            color: "#38cc19",
         },
     ]
-}
+};
 
 export default WorkSpace;
 

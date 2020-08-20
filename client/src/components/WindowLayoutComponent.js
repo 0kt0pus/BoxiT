@@ -17,10 +17,20 @@ const leftPannel = {
     padding: "10px",
 };
   
+const header = {
+    padding: "5px",
+    textAlign: "center",
+    background: "#474753",
+    color: "white",
+    fontSize: "30px",
+  };
+
 const WindowLayout = () => {
     const [annotationLabels, setAnnotationLabels] = useState([]);
     
     return(
+        <div>
+             <h1 style={header}>Box!T</h1>
        <Row>
            <Col sm={2}>
                 <div style={leftPannel}>
@@ -37,6 +47,7 @@ const WindowLayout = () => {
                 </div>
            </Col>
        </Row> 
+       </div>
     );
 };
 

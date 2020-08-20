@@ -2,6 +2,22 @@
 import React from 'react';
 import { Label } from 'react-konva';
 
+const getStyle = (color) => {
+
+    return {
+        backgroundColor: color,
+        marginLeft : "0px",
+        marginRight : "5px",
+        border: "none",
+        color: "black",
+        padding: ["15px", "32px"],
+        textAlign: "center",
+        textDecoration: "none",
+        display: "inline-block",
+        fontSize: "16px",
+    }
+};
+
 const AnnotationLabel = ({labels, getLabelId}) => {
     //console.log(annotationLabels.length)
     return (
@@ -11,9 +27,10 @@ const AnnotationLabel = ({labels, getLabelId}) => {
                         <button
                             key={idx}
                             id={idx}
+                            style={getStyle(label.color)}
                             onClick={(e) => getLabelId(e.target.id)}
                         >
-                            {idx}: {label}
+                            {idx}: {label.label}
                         </button>    
                 );
             })}
