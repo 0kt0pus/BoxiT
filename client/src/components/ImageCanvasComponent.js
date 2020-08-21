@@ -4,6 +4,11 @@ import { Stage, Layer } from "react-konva";
 import Rectangle from "./RectangleComponent";
 import ImageFromUrl from "./ImageFromUrlComponent";
 
+const divStyle = {
+  height: "500px",
+  width: "700px",
+  backgroundColor: "powderblue"
+}
 const ImageCanvas = ({toolId, labelId, color, getAnnotations, getSelectedId, validAnnotations}) => {
     //console.log(toolId)
     const [annotations, setAnnotations] = useState([]);
@@ -113,12 +118,13 @@ const ImageCanvas = ({toolId, labelId, color, getAnnotations, getSelectedId, val
     
     //console.log(validAnnotations)
     return (
+      <div style={divStyle}>
       <Stage
         onMouseDown={handleMouseDown}
         onMouseUp={handleMouseUp}
         onMouseMove={handleMouseMove}
-        width={stageDimensions.stageWidth}
-        height={stageDimensions.stageHeight}
+        width={700}
+        height={500}
       >
         <Layer>
           <ImageFromUrl
@@ -149,6 +155,7 @@ const ImageCanvas = ({toolId, labelId, color, getAnnotations, getSelectedId, val
           })}
         </Layer>
       </Stage>
+      </div>
     );
   };
 

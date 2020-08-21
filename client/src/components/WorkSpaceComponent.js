@@ -4,6 +4,18 @@ import AnnotationTools from "./AnnotationToolsComponent";
 import AnnotationLabel from "./AnnotationLabelComponent";
 import { Container, Row, Col } from 'react-grid-system';
 
+const divStyle = {
+    width: "700px",
+    paddingTop: "50px",
+    paddingRight: "30px",
+    paddingBottom: "50px",
+    paddingLeft: "300px",
+};
+const divStyleTools = {
+    width: "500px",
+    backgroundColor: "powderblue"
+  }
+
 // This components renders the selected components for a annotation job
 const WorkSpace = ({getAnnotationLabels}) => {
     // State to hold the tool Id
@@ -78,39 +90,25 @@ const WorkSpace = ({getAnnotationLabels}) => {
     //const annotationLabels = validAnnotations.slice().map(anno => anno.id)
     //console.log(annotationLabels.length);
     return (
-        <div>
-            <Row>
-                <Col>
-                    <ImageCanvas 
+        <div style={divStyle}>
+                <ImageCanvas 
                         toolId={currentToolId}
                         labelId={currentLabelId}
                         color={currentColor}
                         getAnnotations={getAnnotations}
                         getSelectedId={getSelectedId}
                         validAnnotations={validAnnotations}
-                    />
-                </Col>
-            </Row>
-            <Row>
-                <Col>
-                    <AnnotationTools
+                />
+                <AnnotationTools
                         validAnnotations={validAnnotations}
                         currentSelectedId={currentSelectedId}
                         getToolId={getToolId}
                         getModifiedAnnotations={getModifiedAnnotations}
-                    />
-                </Col>
-            </Row>
-            <Row>
-                <Col>
-                    <AnnotationLabel
+                />
+                <AnnotationLabel
                         labels={labels}
                         getLabelId={getLabelId}
-                    />
-                </Col>
-            </Row>
-            
-            
+                />                    
         </div>
     );
 }

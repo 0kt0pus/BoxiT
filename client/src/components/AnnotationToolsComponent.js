@@ -1,19 +1,20 @@
 import React from 'react';
 
 const container = {
-
+    backgroundColor: "#7bc1c6",
     width: "100%",
-    margin: "0 auto",
-    padding: "5px",
+    paddingTop: "5px",
+    paddingBottom: "5px",
 }
 
 const button_box = {
-    backgroundColor: "#ffa100",
-    marginLeft : "0px",
+    backgroundColor: "#d7e8f9",
+    borderRadius: "8px",
+    marginLeft : "34%",
     marginRight : "5px",
     border: "none",
-    color: "white",
-    padding: ["15px", "32px"],
+    color: "black",
+    padding: "10px 20px",
     textAlign: "center",
     textDecoration: "none",
     display: "inline-block",
@@ -21,12 +22,13 @@ const button_box = {
 };
 
 const button_poly = {
-    backgroundColor: "#0a00ff",
+    backgroundColor: "#d7e8f9",
+    borderRadius: "8px",
     marginRight : "5px",
     marginLeft : "5px",
     border: "none",
-    color: "white",
-    padding: ["15px", "32px"],
+    color: "black",
+    padding: "10px 20px",
     textAlign: "center",
     textDecoration: "none",
     display: "inline-block",
@@ -34,12 +36,13 @@ const button_poly = {
 };
 
 const button_delete = {
-    backgroundColor: "#ff0025", 
-    marginRight : "5px",
+    backgroundColor: "#f9d7d7", 
+    borderRadius: "8px",
+    marginRight : "25px",
     marginLeft : "5px",
     border: "none",
-    color: "white",
-    padding: ["15px", "32px"],
+    color: "black",
+    padding: "10px 20px",
     textAlign: "center",
     textDecoration: "none",
     display: "inline-block",
