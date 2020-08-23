@@ -42,7 +42,6 @@ const WindowLayout = () => {
            <Col sm={4}>
                 <div style={rightPannel}>
                     <WorkSpace 
-                        getAnnotationLabels={(annoLables) => setAnnotationLabels(annoLables)}
                     />
                 </div>
            </Col>

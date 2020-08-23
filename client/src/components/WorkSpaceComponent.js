@@ -9,7 +9,7 @@ const divStyle = {
     paddingTop: "50px",
     paddingRight: "30px",
     paddingBottom: "50px",
-    paddingLeft: "300px",
+    paddingLeft: "200px",
 };
 const divStyleTools = {
     width: "500px",
@@ -17,11 +17,11 @@ const divStyleTools = {
   }
 
 // This components renders the selected components for a annotation job
-const WorkSpace = ({getAnnotationLabels}) => {
+const WorkSpace = () => {
     // State to hold the tool Id
     const [currentToolId, setCurrentToolId] = useState(null);
-    const [validAnnotations, setValidAnnotations] = useState([]);
-    const [currentSelectedId, setCurrentSelectedId] = useState(null);
+    //const [validAnnotations, setValidAnnotations] = useState([]);
+    //const [currentSelectedId, setCurrentSelectedId] = useState(null);
     //const [validAnnotationLabels, setValidAnnotationLabels] = useState([]);
     const [currentLabelId, setCurrentLabelId] = useState(null);
     const [currentColor, setCurrentColor] = useState('black');
@@ -45,7 +45,7 @@ const WorkSpace = ({getAnnotationLabels}) => {
                     });
                 });
     }
-
+    /*
     // get all the labels of the annotations
     const getAnnotations = (annotations) => {
         // Since every mouseUp creates an invalid (w:0, h:0) boxes, filter them
@@ -60,7 +60,7 @@ const WorkSpace = ({getAnnotationLabels}) => {
         return getAnnotationLabels(validAnnotationLabelList);
         //console.log(validAnnotations);
     };
-    
+    */
     // get the label id by click event
     const getLabelId = (labelId) => {
         setCurrentLabelId(labelId);
@@ -70,6 +70,7 @@ const WorkSpace = ({getAnnotationLabels}) => {
     const labels = labelsMap.labels.slice().map(label => {
         return label;
     });
+    /*
     // get the annotations after a modification to the list like a deletion
     const getModifiedAnnotations = (modifiedAnnotations) => {
         //console.log(modifiedAnnotations)
@@ -80,11 +81,14 @@ const WorkSpace = ({getAnnotationLabels}) => {
         // update the dashboard
         return getAnnotationLabels(validAnnotationLabelList);
     }
+    */
+    /*
     const getSelectedId = (shapeId) => {
         
         setCurrentSelectedId(shapeId);
         //console.log(currentSelectedId)
     };
+    */
     // Collect all the label Ids of the annotations
     // map to the label name and collect
     //const annotationLabels = validAnnotations.slice().map(anno => anno.id)
@@ -95,15 +99,9 @@ const WorkSpace = ({getAnnotationLabels}) => {
                         toolId={currentToolId}
                         labelId={currentLabelId}
                         color={currentColor}
-                        getAnnotations={getAnnotations}
-                        getSelectedId={getSelectedId}
-                        validAnnotations={validAnnotations}
                 />
                 <AnnotationTools
-                        validAnnotations={validAnnotations}
-                        currentSelectedId={currentSelectedId}
                         getToolId={getToolId}
-                        getModifiedAnnotations={getModifiedAnnotations}
                 />
                 <AnnotationLabel
                         labels={labels}

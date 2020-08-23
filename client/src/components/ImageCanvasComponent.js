@@ -3,21 +3,25 @@ import ReactDOM from "react-dom";
 import { Stage, Layer } from "react-konva";
 import Rectangle from "./RectangleComponent";
 import ImageFromUrl from "./ImageFromUrlComponent";
+import useAnnotationModifier from '../StoreApi';
 
 const divStyle = {
   height: "500px",
   width: "700px",
   backgroundColor: "powderblue"
 }
-const ImageCanvas = ({toolId, labelId, color, getAnnotations, getSelectedId, validAnnotations}) => {
+const ImageCanvas = ({toolId, labelId, color}) => {
     //console.log(toolId)
-    const [annotations, setAnnotations] = useState([]);
+    //const [annotations, setAnnotations] = useState([]);
     const [newAnnotation, setNewAnnotation] = useState([]);
-    const [selectedId, selectShape] = useState(null);
+    //const [selectedId, selectShape] = useState(null);
     const [stageDimensions, setStageDimensions] = useState({
       stageWidth: 900,
       stageHeight: 700,
     })
+
+    // Instant the reducer
+    const {currentSelectedId, currentAnnotations, addAnnotations, selectAnnotation} = useAnnotationModifier();
 
     const getEmptyBox = () => {
       const emptyBox = {
@@ -30,22 +34,24 @@ const ImageCanvas = ({toolId, labelId, color, getAnnotations, getSelectedId, val
       }
       return emptyBox;
     };
-
+    /*
     const checkDeselect = (e) => {
         // deselect when clicked on empty area
         const clickedOnEmpty = e.target === e.target.name;
         //console.log(e.target.getStage().children[0]._id)
         if (clickedOnEmpty) {
-        selectShape(null);
+        //selectShape(null);
+        selectAnnotation(null);
         }
     };
-  
+    */
     const handleMouseDown = event => {
         console.log("mousedwn")
-        console.log(selectedId)
+        console.log(currentSelectedId)
         // update the annotations state with the modified annotations
-        setAnnotations(validAnnotations);
-        if (selectedId == null) {
+        //setAnnotations(validAnnotations);
+        addAnnotations(currentAnnotations);
+        if (currentSelectedId === null) {
             if (newAnnotation.length === 0) {
                 const { x, y } = event.target.getStage().getPointerPosition();
                 let annotationToAdd = getEmptyBox();
@@ -58,8 +64,8 @@ const ImageCanvas = ({toolId, labelId, color, getAnnotations, getSelectedId, val
     };
   
     const handleMouseUp = event => {
-      console.log("mousedwn")
-        if (selectedId == null) {
+      console.log("mouseup")
+        if (currentSelectedId === null) {
             if (newAnnotation.length === 1) {
                 const sx = newAnnotation[0].x;
                 const sy = newAnnotation[0].y;
@@ -71,22 +77,27 @@ const ImageCanvas = ({toolId, labelId, color, getAnnotations, getSelectedId, val
                     y: sy,
                     width: x - sx,
                     height: y - sy,
-                    key: annotations.length + 1,
+                    key: currentAnnotations.length + 1,
                     id: labelId,
                     fill:"transparent",
                     stroke:color,
                   };
-                  annotations.push(annotationToAdd);
+                  currentAnnotations.push(annotationToAdd);
+                  const validAnnotations = currentAnnotations.filter(anno => {
+                    return (anno.width > 0 && anno.height > 0)
+                  });
                   setNewAnnotation([]);
-                  setAnnotations(annotations); 
+                  //setAnnotations(annotations); 
+                  addAnnotations(validAnnotations);
+                  //console.log(currentAnnotations)
                 }
             }    
         }
-        return getAnnotations(annotations);
+        //return getAnnotations(currentAnnotations);
     };
   
     const handleMouseMove = event => {
-        if (selectedId == null) {
+        if (currentSelectedId === null) {
             if (newAnnotation.length === 1) {
                 const sx = newAnnotation[0].x;
                 const sy = newAnnotation[0].y;
@@ -113,8 +124,8 @@ const ImageCanvas = ({toolId, labelId, color, getAnnotations, getSelectedId, val
     const getStageDimensions = (stageDims) => {
       setStageDimensions(stageDims)
     }
-
-    const annotationsToDraw = [...validAnnotations, ...newAnnotation];
+    //console.log(currentAnnotations)
+    const annotationsToDraw = [...currentAnnotations, ...newAnnotation];
     
     //console.log(validAnnotations)
     return (
@@ -128,7 +139,7 @@ const ImageCanvas = ({toolId, labelId, color, getAnnotations, getSelectedId, val
       >
         <Layer>
           <ImageFromUrl
-            onDeselect={() => selectShape(null)}
+            onDeselect={() => selectAnnotation(null)}
             getStageDimensions={getStageDimensions}
             imageUrl="https://storage.googleapis.com/afs-prod/media/afs:Medium:8059513008/1024.png"
           />
@@ -139,16 +150,16 @@ const ImageCanvas = ({toolId, labelId, color, getAnnotations, getSelectedId, val
                 <Rectangle
                 key={i}
                 shapeProps={annotation}
-                isSelected={annotation.key === selectedId}
+                isSelected={annotation.key === currentSelectedId}
                 onSelect={() => {
                     console.log("Select")
-                  selectShape(annotation.key);
-                  return getSelectedId(annotation.key);
+                  selectAnnotation(annotation.key);
                 }}
                 onChange={(newAttrs) => {
                   const annotations = annotationsToDraw.slice();
                   annotations[i] = newAttrs;
-                  setAnnotations(annotations);
+                  addAnnotations(annotations);
+                  //console.log(currentAnnotations)
                 }}
                 />
             );

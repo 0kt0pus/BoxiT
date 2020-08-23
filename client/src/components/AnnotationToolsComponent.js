@@ -1,4 +1,5 @@
 import React from 'react';
+import useAnnotationModifier from '../StoreApi';
 
 const container = {
     backgroundColor: "#7bc1c6",
@@ -48,13 +49,16 @@ const button_delete = {
     display: "inline-block",
     fontSize: "16px",
 };
-const AnnotationTools = ({validAnnotations, currentSelectedId, getToolId, getModifiedAnnotations}) => {
+const AnnotationTools = ({getToolId}) => {
+    // Init contex reducer through store apis
+    const {deleteAnnotations} = useAnnotationModifier();
     //const [toolId, setToolId] = useState(1);
     // When box is selected
     const handleBoxClick = (e) => {
         //setToolId(1);
         return getToolId(e.target.id);
     }
+    /*
     // using the selectedId delete the annotation (set the param to zero, dont mutate the list)
     const handleDelete = () => {
         //console.log(selectedId);
@@ -78,7 +82,7 @@ const AnnotationTools = ({validAnnotations, currentSelectedId, getToolId, getMod
         //console.log(modifiedAnnotations)
         return getModifiedAnnotations(modifiedAnnotations);
     };
-
+    */
     return (
         <div style={container}>
             <button 
@@ -96,7 +100,7 @@ const AnnotationTools = ({validAnnotations, currentSelectedId, getToolId, getMod
                 Poly
             </button>
             <button 
-                onClick={handleDelete}
+                onClick={deleteAnnotations}
                 style={button_delete}
             >
                 Delete

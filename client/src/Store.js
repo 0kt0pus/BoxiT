@@ -2,14 +2,31 @@ import React, {createContext, useContext, useReducer} from 'react';
 
 // Make a store context
 const StoreContext = createContext();
-const initialState = {toolId: null};
-
+const initialState = {
+    labelsMaps: [{
+        labels: [
+            {
+                label: "car",
+                color: "#0bd8f1",
+            },
+            {
+                label: "fence",
+                color: "#38cc19",
+            },
+        ]
+    }],
+    selectedId: null,
+    annotations: []
+};
+//console.log(initialState)
 const reducer = (state, action) => {
     switch(action.type) {
         case "delete_annotation":
             return {
+                labelsMaps: state.labelsMaps,
+                selectedId: state.selectedId,
                 annotations: state.annotations.map((annotation, i) => {
-                    if (annotation.key === action.currentId) {
+                    if (annotation.key === state.selectedId) {
                         const key = annotation.key
                         const id = annotation.id
                         annotation = {
@@ -23,11 +40,21 @@ const reducer = (state, action) => {
                         return annotation;
                     }
                     return annotation;
-                }),
+                }).filter(anno => {
+                    return (anno.width > 0 && anno.height > 0)
+                  }),
             }
         case "add_annotation":
             return {
-                annotations: state.annotations.push(action.newAnnotations),
+                labelsMaps: state.labelsMaps,
+                selectedId: state.selectedId,
+                annotations: action.newAnnotations,
+            }
+        case "select_annotation":
+            return {
+                labelsMaps: state.labelsMaps,
+                selectedId: action.currentId,
+                annotations: state.annotations,
             }
         default:
             throw new Error(`Unhandled action type: ${action.type}`);

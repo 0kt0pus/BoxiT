@@ -1,12 +1,16 @@
 import { useStore } from './Store';
 
-export const useAnnotationModifier = () => {
+const useAnnotationModifier = () => {
     const {state, dispatch} = useStore();
     // api object
     return {
-        annotations: state.annotations,
+        currentlabelMap: state.labelsMaps,
+        currentSelectedId: state.selectedId,
+        currentAnnotations: state.annotations,
         // dispatchers
-        delete: (id) => dispatch({type: "delete_annotation", currentId: id}),
-        add: (annotation) => dispatch({type: "add_annotation", newAnnotations: annotation}),
+        deleteAnnotations: () => dispatch({type: "delete_annotation"}),
+        addAnnotations: (annotations) => dispatch({type: "add_annotation", newAnnotations: annotations}),
+        selectAnnotation: (id) => dispatch({type: "select_annotation", currentId: id})
     }
 };
+export  default useAnnotationModifier;
