@@ -23,7 +23,7 @@ const header = {
     background: "#474753",
     color: "white",
     fontSize: "30px",
-  };
+};
 
 const WindowLayout = () => {
     const [annotationLabels, setAnnotationLabels] = useState([]);

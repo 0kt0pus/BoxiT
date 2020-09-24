@@ -3,6 +3,7 @@ import React, {createContext, useContext, useReducer} from 'react';
 // Make a store context
 const StoreContext = createContext();
 const initialState = {
+    window: "project_setup",
     labelsMaps: [{
         labels: [
             {
@@ -23,6 +24,7 @@ const reducer = (state, action) => {
     switch(action.type) {
         case "delete_annotation":
             return {
+                window: state.window,
                 labelsMaps: state.labelsMaps,
                 selectedId: state.selectedId,
                 annotations: state.annotations.map((annotation, i) => {
@@ -46,14 +48,23 @@ const reducer = (state, action) => {
             }
         case "add_annotation":
             return {
+                window: state.window,
                 labelsMaps: state.labelsMaps,
                 selectedId: state.selectedId,
                 annotations: action.newAnnotations,
             }
         case "select_annotation":
             return {
+                window: state.window,
                 labelsMaps: state.labelsMaps,
                 selectedId: action.currentId,
+                annotations: state.annotations,
+            }
+        case "set_window":
+            return {
+                window: action.currentWindow,
+                labelsMaps: state.labelsMaps,
+                selectedId: state.currentId,
                 annotations: state.annotations,
             }
         default:

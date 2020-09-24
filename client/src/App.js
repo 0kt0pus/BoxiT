@@ -1,12 +1,13 @@
 import React from 'react';
 import './App.css';
-import WindowLayout from './components/WindowLayoutComponent';
+//import WindowLayout from './components/WindowLayoutComponent';
+import WindowManager from './components/WindowManagerComponent';
 import { StoreProvider } from './Store';
 
 function App() {
   return (
     <StoreProvider>
-      <WindowLayout />
+      <WindowManager />
     </StoreProvider>
   );
 }
