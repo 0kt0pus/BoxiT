@@ -1,0 +1,72 @@
+item
+{
+	id: 1
+	name: 'AT_A_0'
+}
+
+item
+{
+	id: 2
+	name: 'AT_A_20'
+}
+
+item
+{
+	id: 3
+	name: 'AT_A_40'
+}
+
+item
+{
+	id: 4
+	name: 'AT_A_60'
+}
+
+item
+{
+	id: 5
+	name: 'AT_A_80'
+}
+
+item
+{
+	id: 6
+	name: 'AT_A_90'
+}
+
+item
+{
+	id: 7
+	name: 'AT_B_0'
+}
+
+item
+{
+	id: 8
+	name: 'AT_B_20'
+}
+
+item
+{
+	id: 9
+	name: 'AT_B_40'
+}
+
+item
+{
+	id: 10
+	name: 'AT_B_60'
+}
+
+item
+{
+	id: 11
+	name: 'AT_B_80'
+}
+
+item
+{
+	id: 12
+	name: 'AT_B_90'
+}
+
