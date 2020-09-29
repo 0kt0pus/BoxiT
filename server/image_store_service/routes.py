@@ -3,6 +3,7 @@ import json
 import os
 import sys
 from bson import ObjectId
+import utils.pure_utils as pu
 
 ## JsonEncoder manage mongodb objectId
 class JsonEncoder(json.JSONEncoder):
@@ -34,6 +35,39 @@ def create():
     }
     ## insert the dict to db collection
     #collection.insert_one(item)
-    print(item)
+    ## get the folder path and load all files
+    project_path = item["path"]
+    img_paths = pu.get_img_paths(project_path)
+    xml_paths = pu.get_xml_paths(project_path)
+    '''
+    for p in img_paths:
+        print(p)
+    print()
+    for p in xml_paths:
+        print(p)
+    '''
+    #print(project_path)
+    img_names = [pu.get_file_name(path) for path in img_paths]
+    xml_names = [pu.get_file_name(path) for path in xml_paths]
+    #print(xml_names)
+    ## generate a list of dicts containing img name and corresponding xml name 
+    path_obj_list = list()
+    for xml_p, xml_n in zip(xml_paths, xml_names):
+        path_obj = dict()
+        #print(img_names.index(xml_n))
+        #print(img_paths[img_names.index(xml_n)])
+        path_obj["image_path"] = img_paths[img_names.index(xml_n)]
+        path_obj["annotation_path"] = xml_p
+        path_obj_list.append(path_obj)
+
+    #print(path_obj_list)
+    project_data = {
+        "project_name": item["name"],
+        "project_description": item["description"],
+        "data_paths": path_obj_list,
+    }
+    with open("./data/project_data.json", 'w') as f:
+        json.dump(project_data, f)
+
 
     return jsonify(data="Item create sucessfully")

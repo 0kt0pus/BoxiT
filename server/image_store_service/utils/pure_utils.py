@@ -138,7 +138,8 @@ def mover(src_path: list, dst_dir: str):
         shutil.copyfile(p, dst_file)
 
 
-
+def get_file_name(file_path: str) -> str:
+    return os.path.splitext(file_path)[0].split('/')[-1]
 '''
 labels = [
     'AT_A_0',
